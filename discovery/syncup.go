@@ -66,7 +66,7 @@ func (d *Discovery) regSelf() context.CancelFunc {
 		Hostname: d.c.Env.Host,
 		AppID:    model.AppID,
 		Addrs: []string{
-			"http://" + d.c.HTTPServer.Addr,
+			"http://43.138.80.104" + d.c.HTTPServer.Addr,
 		},
 		Status:          model.InstanceStatusUP,
 		RegTimestamp:    now,
