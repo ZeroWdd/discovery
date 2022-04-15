@@ -24,7 +24,7 @@ func NewNodes(c *conf.Config) *Nodes {
 	for _, addr := range c.Nodes {
 		n := newNode(c, addr)
 		n.zone = c.Env.Zone
-		n.pRegisterURL = fmt.Sprintf("http://%s%s", c.Env.SelfAddr, _registerURL)
+		n.pRegisterURL = fmt.Sprintf("http://%s%s", c.Env.RegisterAddr, _registerURL)
 		nodes = append(nodes, n)
 	}
 	zones := make(map[string][]*Node)
@@ -34,7 +34,7 @@ func NewNodes(c *conf.Config) *Nodes {
 			n := newNode(c, addr)
 			n.otherZone = true
 			n.zone = name
-			n.pRegisterURL = fmt.Sprintf("http://%s%s", c.Env.SelfAddr, _registerURL)
+			n.pRegisterURL = fmt.Sprintf("http://%s%s", c.Env.RegisterAddr, _registerURL)
 			znodes = append(znodes, n)
 		}
 		zones[name] = znodes
@@ -42,7 +42,7 @@ func NewNodes(c *conf.Config) *Nodes {
 	return &Nodes{
 		nodes:    nodes,
 		zones:    zones,
-		selfAddr: c.Env.SelfAddr,
+		selfAddr: c.Env.RegisterAddr,
 	}
 }
 

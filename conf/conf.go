@@ -16,11 +16,11 @@ var (
 
 // Env is discovery env.
 type Env struct {
-	Region    string
-	Zone      string
-	Host      string
-	DeployEnv string
-	SelfAddr  string
+	Region       string
+	Zone         string
+	Host         string
+	DeployEnv    string
+	RegisterAddr string
 }
 
 // Config config.
