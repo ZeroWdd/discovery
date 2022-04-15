@@ -9,6 +9,7 @@ region = "sh"
 zone = "sh001"
 host = "test1"
 DeployEnv = "dev"
+serlfAddr = "43.138.80.104:7171"
 
 
 # 其他可用区zone访问host和其标识

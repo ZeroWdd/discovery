@@ -20,6 +20,7 @@ type Env struct {
 	Zone      string
 	Host      string
 	DeployEnv string
+	SelfAddr  string
 }
 
 // Config config.

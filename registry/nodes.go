@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"math/rand"
-	"strings"
 
 	"github.com/bilibili/discovery/conf"
 	"github.com/bilibili/discovery/model"
@@ -25,11 +24,7 @@ func NewNodes(c *conf.Config) *Nodes {
 	for _, addr := range c.Nodes {
 		n := newNode(c, addr)
 		n.zone = c.Env.Zone
-		if strings.Contains(c.HTTPServer.Addr, ":") {
-			n.pRegisterURL = fmt.Sprintf("http://%s%s", "43.138.80.104"+c.HTTPServer.Addr, _registerURL)
-		} else {
-			n.pRegisterURL = fmt.Sprintf("http://%s%s", c.HTTPServer.Addr, _registerURL)
-		}
+		n.pRegisterURL = fmt.Sprintf("http://%s%s", c.Env.SelfAddr, _registerURL)
 		nodes = append(nodes, n)
 	}
 	zones := make(map[string][]*Node)
@@ -39,25 +34,15 @@ func NewNodes(c *conf.Config) *Nodes {
 			n := newNode(c, addr)
 			n.otherZone = true
 			n.zone = name
-			if strings.Contains(c.HTTPServer.Addr, ":") {
-				n.pRegisterURL = fmt.Sprintf("http://%s%s", "43.138.80.104"+c.HTTPServer.Addr, _registerURL)
-			} else {
-				n.pRegisterURL = fmt.Sprintf("http://%s%s", c.HTTPServer.Addr, _registerURL)
-			}
+			n.pRegisterURL = fmt.Sprintf("http://%s%s", c.Env.SelfAddr, _registerURL)
 			znodes = append(znodes, n)
 		}
 		zones[name] = znodes
 	}
-	selfAddr := ""
-	if strings.Contains(c.HTTPServer.Addr, ":") {
-		selfAddr = "43.138.80.104:7171"
-	} else {
-
-	}
 	return &Nodes{
 		nodes:    nodes,
 		zones:    zones,
-		selfAddr: selfAddr,
+		selfAddr: c.Env.SelfAddr,
 	}
 }
 
